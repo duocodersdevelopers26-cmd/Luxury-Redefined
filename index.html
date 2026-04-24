@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LUXE — Premium Store</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- LOADER -->
+  <div class="page-loader" id="loader">
+    <div class="loader-logo">LUXE</div>
+    <div class="loader-bar"><div class="loader-progress"></div></div>
+  </div>
+
+  <!-- CURSOR -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- SEARCH -->
+  <div class="search-bar" id="searchBar">
+    <div class="search-inner">
+      <div class="search-input-wrap">
+        <input class="search-input" id="searchInput" placeholder="Search for products..." />
+        <button class="search-close-btn" onclick="toggleSearch()">✕</button>
+      </div>
+      <p style="margin-top:16px;font-size:13px;color:var(--muted);letter-spacing:1px;">Popular: Watches · Perfumes · Bags · Sunglasses</p>
+    </div>
+  </div>
+
+  <!-- PROMO BAR -->
+  <div class="promo-bar">
+    <span>🚚 Free shipping on orders over $150</span>
+    <span>✨ New arrivals every week</span>
+    <span>💎 Luxury certified products</span>
+    <span>↩ 30-day free returns</span>
+  </div>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <a href="#" class="logo">LUXE</a>
+    <ul class="nav-links">
+      <li><a href="#categories">Collections</a></li>
+      <li><a href="#products">Shop</a></li>
+      <li><a href="#sale">Sale</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button onclick="toggleSearch()" style="background:none;border:none;color:var(--light);font-size:20px;cursor:pointer;transition:color 0.3s" onmouseover="this.style.color='#c9a84c'" onmouseout="this.style.color='#f7f4ef'">🔍</button>
+      <button class="cart-btn" onclick="toggleCart()" id="wishlistBtn" style="font-size:22px">❤️
+        <span class="cart-count wishlist-count" id="wishlistCount">0</span>
+      </button>
+      <button class="cart-btn" onclick="toggleCart()">🛒
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- CART OVERLAY -->
+  <div class="cart-overlay" id="cartOverlay" onclick="closeCartOnOverlay(event)">
+    <div class="cart-sidebar">
+      <div class="cart-header">
+        <h3>Your Cart</h3>
+        <button class="cart-close" onclick="toggleCart()">✕</button>
+      </div>
+      <div class="cart-items" id="cartItems"></div>
+      <div class="cart-footer">
+        <div class="cart-total">
+          <span class="cart-total-label">TOTAL</span>
+          <span class="cart-total-amount" id="cartTotal">$0.00</span>
+        </div>
+        <button class="btn-primary" style="width:100%;text-align:center" onclick="checkout()">Checkout →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast">
+    <span class="toast-icon">✅</span>
+    <span class="toast-msg" id="toastMsg"></span>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <div class="hero-badge">New Collection 2025</div>
+      <h1>Luxury<em>Redefined</em></h1>
+      <p>Discover curated pieces from the world's most prestigious brands. Where elegance meets innovation in every detail.</p>
+      <div class="hero-ctas">
+        <a href="#products" class="btn-primary">Shop Now</a>
+        <a href="#categories" class="btn-outline">Explore Collections</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span style="font-size:10px;letter-spacing:2px;color:rgba(247,244,239,0.4)">SCROLL</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stats-grid">
+      <div class="stat-item"><span class="stat-num" data-target="12400">0</span><span class="stat-text">Happy Customers</span></div>
+      <div class="stat-item"><span class="stat-num" data-target="850">0</span><span class="stat-text">Premium Products</span></div>
+      <div class="stat-item"><span class="stat-num" data-target="48">0</span><span class="stat-text">Luxury Brands</span></div>
+      <div class="stat-item"><span class="stat-num" data-target="99">0</span><span class="stat-text">% Satisfaction Rate</span></div>
+    </div>
+  </div>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span>✦ Free Worldwide Shipping</span><span>✦ Authentic Luxury</span><span>✦ Premium Quality</span><span>✦ Exclusive Designs</span><span>✦ 30-Day Returns</span><span>✦ Certified Genuine</span>
+      <span>✦ Free Worldwide Shipping</span><span>✦ Authentic Luxury</span><span>✦ Premium Quality</span><span>✦ Exclusive Designs</span><span>✦ 30-Day Returns</span><span>✦ Certified Genuine</span>
+    </div>
+  </div>
+
+  <!-- CATEGORIES -->
+  <section class="categories reveal" id="categories">
+    <div class="section-header">
+      <span class="section-badge">Browse Collections</span>
+      <h2 class="section-title">Shop by Category</h2>
+      <p class="section-subtitle">Explore our carefully curated collections for every luxury lifestyle</p>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-card" onclick="filterProducts('watches')">
+        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&h=500&fit=crop" alt="Timepieces" class="cat-card-img" />
+        <div class="cat-info"><h3>Timepieces</h3><p>142 Products</p></div>
+      </div>
+      <div class="cat-card" onclick="filterProducts('accessories')">
+        <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600&h=500&fit=crop" alt="Handbags" class="cat-card-img" />
+        <div class="cat-info"><h3>Handbags</h3><p>98 Products</p></div>
+      </div>
+      <div class="cat-card" onclick="filterProducts('fragrance')">
+        <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600&h=500&fit=crop" alt="Fragrances" class="cat-card-img" />
+        <div class="cat-info"><h3>Fragrances</h3><p>75 Products</p></div>
+      </div>
+      <div class="cat-card" onclick="filterProducts('all')">
+        <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&h=500&fit=crop" alt="Jewelry" class="cat-card-img" />
+        <div class="cat-info"><h3>Jewelry</h3><p>210 Products</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="products reveal" id="products">
+    <div class="section-header">
+      <span class="section-badge">Featured Items</span>
+      <h2 class="section-title">New Arrivals</h2>
+      <p class="section-subtitle">Hand-picked selections from our latest luxury collections</p>
+    </div>
+    <div class="products-filter">
+      <button class="filter-btn active" onclick="filterProducts('all',this)">All</button>
+      <button class="filter-btn" onclick="filterProducts('watches',this)">Watches</button>
+      <button class="filter-btn" onclick="filterProducts('fragrance',this)">Fragrance</button>
+      <button class="filter-btn" onclick="filterProducts('accessories',this)">Accessories</button>
+      <button class="filter-btn" onclick="filterProducts('jewelry',this)">Jewelry</button>
+    </div>
+    <div class="products-grid" id="productsGrid"></div>
+  </section>
+
+  <!-- FLASH SALE -->
+  <section class="flash-sale reveal" id="sale">
+    <div class="sale-content">
+      <div class="sale-text">
+        <div class="sale-label">
+          <span class="sale-badge">🔥 FLASH SALE</span>
+        </div>
+        <h2>Deal of<br><em style="font-style:italic;color:var(--gold)">the Week</em></h2>
+        <p>Don't miss this incredible offer on our best-selling Swiss timepiece. Limited units available at this exclusive price.</p>
+        <div class="countdown">
+          <div class="countdown-unit"><span class="countdown-num" id="cd-hours">08</span><span class="countdown-label">Hours</span></div>
+          <span class="countdown-sep">:</span>
+          <div class="countdown-unit"><span class="countdown-num" id="cd-mins">34</span><span class="countdown-label">Minutes</span></div>
+          <span class="countdown-sep">:</span>
+          <div class="countdown-unit"><span class="countdown-num" id="cd-secs">00</span><span class="countdown-label">Seconds</span></div>
+        </div>
+        <button class="btn-primary" onclick="addProductById(0)">Add to Cart — $1,299</button>
+      </div>
+      <div class="sale-product">
+        <span class="sale-discount">-35%</span>
+        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop" alt="Swiss Precision Chronograph" class="sale-product-img" />
+        <div class="sale-product-name">Swiss Precision Chronograph</div>
+        <div style="font-size:12px;color:var(--muted);margin:6px 0 16px;letter-spacing:1px">MAISON ROYALE · Limited Edition</div>
+        <div class="sale-product-price">
+          <span class="sale-new-price">$1,299</span>
+          <span class="sale-old-price">$1,999</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials reveal" id="about">
+    <div class="section-header">
+      <span class="section-badge">Customer Stories</span>
+      <h2 class="section-title">What Our Clients Say</h2>
+      <p class="section-subtitle">Join thousands of satisfied luxury shoppers worldwide</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"The quality surpassed every expectation. The watch arrived in impeccable packaging and the craftsmanship is extraordinary. This is exactly what luxury shopping should feel like."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar" style="background:linear-gradient(135deg,#1a0a00,#3d1f00)">👩</div>
+          <div><div class="author-name">Sophia Chen</div><div class="author-title">Fashion Director, NYC</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"LUXE has become my go-to destination for everything premium. The curation is flawless and the customer service is genuinely world-class. They truly understand luxury."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar" style="background:linear-gradient(135deg,#000a1a,#001f3d)">👨</div>
+          <div><div class="author-name">Marcus Laurent</div><div class="author-title">CEO, Meridian Group</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"I purchased a bag for my anniversary and my wife was absolutely delighted. The authenticity certificate and premium gifting experience made it even more special. Highly recommend!"</p>
+        <div class="testimonial-author">
+          <div class="author-avatar" style="background:linear-gradient(135deg,#0a001a,#1f003d)">🧑</div>
+          <div><div class="author-name">James Harrington</div><div class="author-title">Architect, London</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter reveal">
+    <span class="section-badge">Stay Updated</span>
+    <h2>Join the Inner Circle</h2>
+    <p>Get exclusive access to new arrivals, private sales, and style guides from our luxury curators.</p>
+    <div class="newsletter-form">
+      <input type="email" placeholder="Your email address" id="emailInput" />
+      <button onclick="subscribeNewsletter()">Subscribe</button>
+    </div>
+    <p style="font-size:12px;color:var(--muted)">No spam. Unsubscribe anytime. We respect your privacy.</p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo">LUXE</a>
+        <p>Your premier destination for authenticated luxury goods. Curated with passion, delivered with care since 2018.</p>
+        <div class="footer-socials">
+          <div class="social-btn">𝕏</div>
+          <div class="social-btn">f</div>
+          <div class="social-btn">in</div>
+          <div class="social-btn">📸</div>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#">New Arrivals</a></li>
+          <li><a href="#">Best Sellers</a></li>
+          <li><a href="#">Sale Items</a></li>
+          <li><a href="#">Gift Cards</a></li>
+          <li><a href="#">Lookbooks</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Shipping Policy</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">Track Order</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">Our Story</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Sustainability</a></li>
+          <li><a href="#">Affiliates</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 LUXE. All rights reserved. Made with ♥</p>
+      <div class="payment-icons">
+        <span class="pay-icon">VISA</span>
+        <span class="pay-icon">MC</span>
+        <span class="pay-icon">AMEX</span>
+        <span class="pay-icon">PayPal</span>
+        <span class="pay-icon">Apple Pay</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
